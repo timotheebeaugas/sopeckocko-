@@ -2,10 +2,18 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+// connection à mangoDB
+mongoose.connect('mongodb+srv://admin1:HQZ5VkFEukx3KQwT@cluster0-ia7i3.mongodb.net/test?retryWrites=true&w=majority',
+  { useNewUrlParser: true,
+    useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 const app = express();
 
-// On autorise tout le monde à acceder à toutes les fonctionalitées de l'API
+// Autorise tout le monde à acceder à toutes les fonctionalitées de l'API
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -14,7 +22,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// On parse avec body-parser
+// Paser avec body-parser
 
 app.use(bodyParser.json());
 
