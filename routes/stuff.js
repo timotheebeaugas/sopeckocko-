@@ -7,12 +7,15 @@ const auth = require('../middleware/auth');
 // Importation et application de la fonction à la Route
 const stuffCtrl = require('../controllers/stuff');
 
+// imporation de multer 
+const multer = require('../middleware/multer-config');
+
 
 // requête POST
-router.post('/', auth, stuffCtrl.creatThing);
+router.post('/', auth, multer, stuffCtrl.creatThing);
   
 // Route PUT pour modifier l'objet en fonction de son ID
-router.put('/:id', auth, stuffCtrl.modifyThing);
+router.put('/:id', auth, multer, stuffCtrl.modifyThing);
   
 // Route DELETE
 router.delete('/:id', auth, stuffCtrl.deleteThing);
