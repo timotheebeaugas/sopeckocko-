@@ -1,3 +1,5 @@
+// On contrôle ici le format de ce qu'on veut recevoir avant de le stocker
+
 const mongoose = require('mongoose');
 
 const thingSchema = mongoose.Schema({

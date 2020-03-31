@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const stuffRoutes = require('./routes/stuff');
+const userRoutes = require('./routes/user');
 
 // connection à mangoDB
 mongoose.connect('mongodb+srv://admin1:HQZ5VkFEukx3KQwT@cluster0-ia7i3.mongodb.net/test?retryWrites=true&w=majority',
@@ -31,5 +32,6 @@ app.use(bodyParser.json());
 // On retrouve les routes + la racine de l'adresse de l'API
 
 app.use('/api/stuff', stuffRoutes);
+app.use('/api/auth', userRoutes);
 
 module.exports = app;
