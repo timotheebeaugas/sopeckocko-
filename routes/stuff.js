@@ -13,7 +13,7 @@ const multer = require('../middleware/multer-config');
 
 // requête POST
 router.post('/', auth, multer, stuffCtrl.creatThing);
-router.post('/:id/like', auth, multer, stuffCtrl.creatThing); // Thing à créer pour gérer les likes
+router.post('/:id/like', auth, stuffCtrl.creatThing); // Thing à créer pour gérer les likes
   
 // Route PUT pour modifier l'objet en fonction de son ID
 router.put('/:id', auth, multer, stuffCtrl.modifyThing);
