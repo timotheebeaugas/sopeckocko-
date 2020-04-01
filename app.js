@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 
 // On retrouve les routes + la racine de l'adresse de l'API
 
-app.use('/api/stuff', stuffRoutes);
+app.use('/api/sauce', stuffRoutes);
 app.use('/api/auth', userRoutes);
 
 // Servivr les images du dossier statique 
