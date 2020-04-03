@@ -29,6 +29,7 @@ app.use((req, res, next) => {
 // Paser avec body-parser
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
 // On retrouve les routes + la racine de l'adresse de l'API
 
