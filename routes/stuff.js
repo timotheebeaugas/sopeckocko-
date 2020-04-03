@@ -10,23 +10,22 @@ const stuffCtrl = require('../controllers/stuff');
 // imporation de multer 
 const multer = require('../middleware/multer-config');
 
-
 // requête POST
-router.post('/', auth, multer, stuffCtrl.creatThing); 
+router.post('/', auth, multer, stuffCtrl.creatThing); // OK !
 router.post('/:id/like', auth, stuffCtrl.creatThing); // Thing à créer pour gérer les likes
   
 // Route PUT pour modifier l'objet en fonction de son ID
-router.put('/:id', auth, multer, stuffCtrl.modifyThing);
+router.put('/:id', auth, multer, stuffCtrl.modifyThing); // OK !
   
 // Route DELETE
-router.delete('/:id', auth, stuffCtrl.deleteThing);
+router.delete('/:id', auth, stuffCtrl.deleteThing); // OK !
   
 // requête GET //
   
 // un objet par id
-router.get('/:id', auth, stuffCtrl.getOneThing);
+router.get('/:id', auth, stuffCtrl.getOneThing); // OK !
   
 // tous les objets
-router.get('/', auth, stuffCtrl.getAllThings);
+router.get('/', auth, stuffCtrl.getAllThings); // OK !
 
 module.exports = router;
