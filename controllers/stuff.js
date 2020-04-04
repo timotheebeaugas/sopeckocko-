@@ -19,7 +19,23 @@ exports.creatThing = (req, res, next) => {
     .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
     .catch(error => res.status(400).json({ error }));
 };
-
+/*
+exports.likeSauce = (req, res, next) => {
+  const thingObject = JSON.parse(req.body.sauce);
+  delete thingObject._id;
+  const thing = new Thing({
+    ...thingObject,
+    usersLiked: [],
+    usersDisliked: [],
+    likes: 0,
+    dislikes: 0,
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  });
+  thing.save()
+    .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+    .catch(error => res.status(400).json({ error }));
+};
+*/
 exports.modifyThing = (req, res, next) => {
   const thingObject = req.file ?
     {
