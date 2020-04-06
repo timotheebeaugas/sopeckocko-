@@ -56,45 +56,86 @@ exports.getAllThings = (req, res, next) => {
       .catch(error => res.status(400).json({ error }));
   };
 
-exports.likeSauce = (req, res, next) => {
+  exports.likeSauce = (req, res, next) => {
 
-  const thingObject = req.body.userId;
-    console.log(thingObject);
-   
-  if (req.body.like === 0){
+   // const thingObject = req.body.userId;
+    //  console.log(thingObject);
+   /*  Thing.findOne({ _id: req.params.id })
+    .then(thing => {
+      const aze = thing.usersLiked;
+      const qsd = thing.usersDisliked;
+      console.log(ass,bss);
+      if(aze == req.body.userId){
+        Thing.updateOne({ _id: req.params.id }, { $inc: {likes:-1}})
+          .then(() => res.status(200).json({ message: 'nombre de like purgé !'}))
+          .catch(error => res.status(400).json({ error }));
+      }else if(qsd == req.body.userId){
+        Thing.updateOne({ _id: req.params.id }, { $inc: {dislikes:-1}})
+          .then(() => res.status(200).json({ message: 'nombre de dislike purgé !'}))
+          .catch(error => res.status(400).json({ error }));
+      }
+    })
+    .catch(error => res.status(500).json({ error })); */
     
-    Thing.findOne({ _id: req.params.id })
-  .then(thing => {
-    const aze = thing.usersLiked;
-    const qsd = thing.usersDisliked;
-    console.log(ass,bss);
-    if(aze == req.body.userId){
-      Thing.updateOne({ _id: req.params.id }, { $inc: {likes:-1}})
-        .then(() => res.status(200).json({ message: 'nombre de like purgé !'}))
+    Thing.updateOne({ _id: req.params.id }, { $pull: {usersLiked: req.body.userId, usersDisliked: req.body.userId}})
+      .then(() => res.status(200).json({ message: 'supression des userID du document !'}))
+      .catch(error => res.status(400).json({ error }));
+
+      
+     
+    if (req.body.like === 0){
+      
+      Thing.findOne({ _id: req.params.id })
+        .then(thing => {
+          const disliked = thing.usersDisliked;
+          const dislikedLenght = disliked.length;
+          const liked = thing.usersLiked;
+          const likedLenght = liked.length;
+          Thing.updateOne({ _id: req.params.id }, {dislikes:dislikedLenght, likes:likedLenght})
+        .then(() => res.status(200).json({ message: 'dislike envoyé !'}))
         .catch(error => res.status(400).json({ error }));
-    }else if(qsd == req.body.userId){
-      Thing.updateOne({ _id: req.params.id }, { $inc: {dislikes:-1}})
-        .then(() => res.status(200).json({ message: 'nombre de dislike purgé !'}))
+        })
+        .catch(error => res.status(500).json({ error }));
+      
+      
+    } 
+    
+    else if (req.body.like === -1) {
+      Thing.updateOne({ _id: req.params.id }, { $push: {usersDisliked:req.body.userId}})
+        .then(() => res.status(200).json({ message: 'userId envoyé !'}))
         .catch(error => res.status(400).json({ error }));
+       
+       Thing.findOne({ _id: req.params.id })
+        .then(thing => {
+          const disliked = thing.usersDisliked;
+          const dislikedLenght = disliked.length;
+          console.log(disliked,dislikedLenght);
+          Thing.updateOne({ _id: req.params.id }, {dislikes:dislikedLenght})
+        .then(() => res.status(200).json({ message: 'dislike envoyé !'}))
+        .catch(error => res.status(400).json({ error }));
+        })
+        .catch(error => res.status(500).json({ error }));
+      
+    } 
+    
+    else if (req.body.like === 1){
+      Thing.updateOne({ _id: req.params.id }, { $push: {usersLiked: req.body.userId}})
+        .then(() => res.status(200).json({ message: 'userId envoyé !'}))
+        .catch(error => res.status(400).json({ error }));
+
+        Thing.findOne({ _id: req.params.id })
+        .then(thing => {
+          const liked = thing.usersLiked;
+          const likedLenght = liked.length;
+          console.log(liked,likedLenght);
+          Thing.updateOne({ _id: req.params.id }, {likes:likedLenght})
+        .then(() => res.status(200).json({ message: 'like envoyé !'}))
+        .catch(error => res.status(400).json({ error }));
+        })
+        .catch(error => res.status(500).json({ error })); 
     }
-  })
-  .catch(error => res.status(500).json({ error }));
-    
-  Thing.updateOne({ _id: req.params.id }, { $pull: {usersLiked: req.body.userId, usersDisliked: req.body.userId}})
-    .then(() => res.status(200).json({ message: 'supression des userID du document !'}))
-    .catch(error => res.status(400).json({ error }));
-  } 
+
   
-  else if (req.body.like === -1) {
-    Thing.updateOne({ _id: req.params.id }, { $inc: {dislikes:1}, $push: {usersDisliked:req.body.userId}})
-      .then(() => res.status(200).json({ message: 'like et userId envoyé !'}))
-      .catch(error => res.status(400).json({ error }));
-  } 
-  
-  else if (req.body.like === 1){
-    Thing.updateOne({ _id: req.params.id }, { $inc: {likes:1}, $push: {usersLiked: req.body.userId}})
-      .then(() => res.status(200).json({ message: 'dilike et userId envoyé !'}))
-      .catch(error => res.status(400).json({ error }));
-  }
-};
+
+  };
 
