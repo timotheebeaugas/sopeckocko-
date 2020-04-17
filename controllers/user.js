@@ -4,7 +4,7 @@ const User = require('../models/user');
 
 exports.signup = (req, res, next) => {
     if (req.body.password.length < 8) {
-        return res.status(400).json({ error: 'Too short password !' });
+        return res.status(400).json({message : 'Too short password !'});
     }
     bcrypt.hash(req.body.password, 10)
     .then(hash => {
@@ -16,7 +16,7 @@ exports.signup = (req, res, next) => {
         .then(() => res.status(201).json({ message: 'User created !' }))
         .catch(error => res.status(400).json({ error }));
     })
-    .catch(error => res.status(600).json({ error }));
+    .catch(error => res.status(500).json({ error }));
   };
 
 exports.login = (req, res, next) => {
@@ -43,3 +43,10 @@ User.findOne({ email: req.body.email })
     })
     .catch(error => res.status(500).json({ error }));
 };
+
+exports.delete = (req, res, next) => {
+    User.deleteOne({ _id: req.params.id })
+      .then(() => res.status(200).json({ message: 'User deleted !'}))
+      .catch(error => res.status(400).json({ error }));
+  };
+
