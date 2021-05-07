@@ -1,5 +1,5 @@
 # API Sopeckocko
-API for a customer reviews management application developed with Angular `7.0.2`: https://github.com/OpenClassrooms-Student-Center/dwj-projet6
+API for a customer reviews management application developed with Angular `7.0.2`: https://github.com/OpenClassrooms-Student-Center/dwj-projet6  
 Using Node.js `13.14.0` for the server side and a non-relational MongoDB Atlas database. 
 
 Install dependencies with `npm install` and start the server with `node server`. 
